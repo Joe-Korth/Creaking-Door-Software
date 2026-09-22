@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Creaking Door Software</title>
 
   <style>
@@ -19,13 +18,11 @@
       margin: 0;
       min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
-      transition:
-        background 0.5s ease,
-        color 0.5s ease;
+      transition: background 0.45s ease, color 0.45s ease;
+      overflow-x: hidden;
     }
 
-    button,
-    a {
+    a, button {
       font: inherit;
     }
 
@@ -35,8 +32,7 @@
 
     /* =========================
        ENTRY SCREEN
-    ========================== */
-
+    ========================= */
     #entry-screen {
       position: fixed;
       inset: 0;
@@ -45,188 +41,165 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-
       background:
-        radial-gradient(
-          circle at center,
-          rgba(50, 40, 32, 0.85),
-          rgba(5, 5, 5, 0.98)
-        );
+        radial-gradient(circle at center, rgba(44, 36, 30, 0.86), rgba(4, 4, 4, 0.98));
     }
 
     .entry-box {
-      width: min(650px, 100%);
-      padding: 42px;
-
-      background: rgba(14, 14, 14, 0.96);
-
+      width: min(680px, 100%);
+      padding: 40px;
+      background: rgba(12, 12, 12, 0.96);
       border: 1px solid #6e5945;
-      border-radius: 10px;
-
+      border-radius: 12px;
       box-shadow:
-        0 0 40px rgba(0, 0, 0, 0.9),
-        inset 0 0 30px rgba(85, 56, 35, 0.18);
-
+        0 0 40px rgba(0, 0, 0, 0.85),
+        inset 0 0 30px rgba(98, 66, 43, 0.16);
       text-align: center;
-
-      color: #eee8dd;
+      color: #eee6dc;
     }
 
     .entry-box h1 {
-      margin-top: 0;
-      margin-bottom: 16px;
-
+      margin: 0 0 14px;
       font-family: Georgia, serif;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-
+      font-size: clamp(2rem, 6vw, 3.3rem);
       letter-spacing: 1px;
     }
 
     .entry-box p {
       line-height: 1.7;
-      color: #cfc4b5;
+      color: #d0c4b6;
     }
 
     .entry-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
-
-      margin-top: 30px;
+      margin-top: 28px;
     }
 
     .entry-button {
       padding: 20px;
-
-      border-radius: 8px;
-      border: 1px solid #8b6a4d;
-
+      border-radius: 10px;
+      border: 1px solid #85674d;
       cursor: pointer;
-
-      background: #211c18;
-      color: #f2ece4;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+      background: #221c18;
+      color: #f1e9df;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
 
     .entry-button:hover {
       transform: translateY(-3px);
-
-      background: #332920;
-
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      background: #34281f;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
     }
 
     .entry-button strong {
       display: block;
-      font-size: 1.1rem;
       margin-bottom: 6px;
+      font-size: 1.08rem;
     }
 
     .entry-button span {
-      font-size: 0.9rem;
-      opacity: 0.8;
+      font-size: 0.92rem;
+      opacity: 0.86;
+      line-height: 1.5;
     }
 
     /* =========================
-       GENERAL PAGE LAYOUT
-    ========================== */
-
+       MAIN LAYOUT
+    ========================= */
     #site-content {
       display: none;
       min-height: 100vh;
-    }
-
-    header {
-      padding: 80px 24px 60px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      line-height: 1;
-
-      font-family: Georgia, "Times New Roman", serif;
-
-      letter-spacing: 2px;
-    }
-
-    header p {
-      max-width: 750px;
-      margin: 22px auto 0;
-
-      font-size: 1.05rem;
-      line-height: 1.7;
     }
 
     nav {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-
       gap: 16px;
-
       padding: 14px 24px;
-
       position: sticky;
       top: 0;
-
-      z-index: 100;
+      z-index: 200;
     }
 
     nav a {
       text-decoration: none;
       padding: 9px 15px;
+      border-radius: 7px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
 
-      border-radius: 6px;
+    header {
+      position: relative;
+      padding: 0;
+      overflow: hidden;
+    }
 
-      transition:
-        background 0.2s ease,
-        color 0.2s ease;
+    .hero {
+      position: relative;
+      min-height: 540px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 40px 20px 50px;
+    }
+
+    .hero-overlay {
+      position: relative;
+      z-index: 4;
+      width: min(900px, 100%);
+      text-align: center;
+      padding: 24px;
+      border-radius: 16px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-overlay h1 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(2.7rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+
+    .hero-overlay p {
+      max-width: 780px;
+      margin: 18px auto 0;
+      font-size: 1.06rem;
+      line-height: 1.75;
     }
 
     main {
       width: min(1100px, calc(100% - 40px));
       margin: 0 auto;
-
       padding-bottom: 80px;
+      position: relative;
+      z-index: 5;
     }
 
     section {
-      padding: 55px 0;
+      padding: 58px 0;
     }
 
     section h2 {
       margin-top: 0;
-      margin-bottom: 28px;
-
+      margin-bottom: 26px;
       font-size: 2rem;
-
       font-family: Georgia, serif;
     }
 
     .project-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(auto-fit, minmax(260px, 1fr));
-
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
     }
 
     .project-card {
       padding: 26px;
-
-      border-radius: 10px;
-
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+      border-radius: 12px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .project-card:hover {
@@ -244,331 +217,467 @@
 
     .status {
       display: inline-block;
-
       margin-top: 14px;
       padding: 5px 10px;
-
-      border-radius: 20px;
-
+      border-radius: 999px;
       font-size: 0.8rem;
     }
 
     footer {
       padding: 40px 24px;
       text-align: center;
-
-      font-size: 0.9rem;
+      font-size: 0.92rem;
     }
 
     #theme-switcher {
       position: fixed;
-
       right: 18px;
       bottom: 18px;
-
       z-index: 500;
-
-      padding: 10px 14px;
-
+      padding: 11px 14px;
       border-radius: 8px;
-
       cursor: pointer;
-
       font-size: 0.85rem;
     }
 
     /* =========================
-       CREEPING DOOR MODE
-    ========================== */
-
-    body.creepy {
-      color: #ebe5dc;
-
-      background:
-        linear-gradient(
-          rgba(5, 5, 5, 0.78),
-          rgba(5, 5, 5, 0.94)
-        ),
-        radial-gradient(
-          circle at 50% 0%,
-          #433224,
-          #16120f 45%,
-          #060606 80%
-        );
+       HERO SCENE
+    ========================= */
+    .scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
     }
 
-    body.creepy::before {
-      content: "";
+    .moon {
+      position: absolute;
+      top: 70px;
+      right: 14%;
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #f5edd1, #cbc3ad 55%, #8c887d 100%);
+      opacity: 0.85;
+      box-shadow: 0 0 45px rgba(240, 233, 194, 0.12);
+    }
 
+    .mist {
+      position: absolute;
+      inset: auto -10% 40px -10%;
+      height: 180px;
+      background: radial-gradient(ellipse at center, rgba(195, 205, 216, 0.10), rgba(195, 205, 216, 0.00) 70%);
+      animation: drift 18s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    .tree-line-back,
+    .tree-line-front {
+      position: absolute;
+      left: 0;
+      width: 100%;
       pointer-events: none;
+    }
 
-      position: fixed;
-      inset: 0;
-
-      z-index: -1;
-
-      opacity: 0.14;
-
+    .tree-line-back {
+      bottom: 170px;
+      height: 180px;
       background:
+        radial-gradient(ellipse at 8% 100%, #111 0 38px, transparent 39px),
+        radial-gradient(ellipse at 18% 100%, #111 0 50px, transparent 51px),
+        radial-gradient(ellipse at 31% 100%, #101010 0 43px, transparent 44px),
+        radial-gradient(ellipse at 43% 100%, #111 0 60px, transparent 61px),
+        radial-gradient(ellipse at 57% 100%, #101010 0 45px, transparent 46px),
+        radial-gradient(ellipse at 71% 100%, #111 0 56px, transparent 57px),
+        radial-gradient(ellipse at 84% 100%, #101010 0 42px, transparent 43px),
+        radial-gradient(ellipse at 94% 100%, #111 0 50px, transparent 51px);
+      opacity: 0.65;
+      z-index: 2;
+    }
+
+    .tree-line-front {
+      bottom: 0;
+      height: 280px;
+      background:
+        linear-gradient(to top, rgba(7,7,7,0.98), rgba(7,7,7,0.0) 100%),
         repeating-linear-gradient(
           90deg,
-          transparent 0px,
-          transparent 45px,
-          rgba(255,255,255,0.03) 46px,
-          transparent 47px
+          transparent 0 70px,
+          rgba(8,8,8,0.94) 70px 82px,
+          transparent 82px 150px
         );
+      z-index: 3;
+      opacity: 0.95;
     }
 
-    body.creepy header {
-      position: relative;
+    .cabin {
+      position: absolute;
+      left: 50%;
+      bottom: 78px;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 185px;
+      z-index: 4;
+    }
 
+    .cabin-body {
+      position: absolute;
+      bottom: 0;
+      left: 22px;
+      width: 216px;
+      height: 118px;
       background:
-        linear-gradient(
-          rgba(0, 0, 0, 0.25),
-          rgba(0, 0, 0, 0.6)
-        );
-
-      border-bottom: 1px solid #47392e;
+        linear-gradient(180deg, #34261d, #231913);
+      border: 2px solid #120d0a;
+      box-shadow: 0 18px 35px rgba(0,0,0,0.45);
     }
 
-    body.creepy header h1 {
-      color: #f1e7d9;
-
-      text-shadow:
-        0 0 10px rgba(210, 170, 115, 0.15),
-        0 5px 15px rgba(0,0,0,0.8);
+    .cabin-roof {
+      position: absolute;
+      top: 12px;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-bottom: 74px solid #1c1511;
+      filter: drop-shadow(0 7px 5px rgba(0,0,0,0.35));
     }
 
-    body.creepy header p {
-      color: #bfb3a6;
+    .window {
+      position: absolute;
+      top: 34px;
+      width: 36px;
+      height: 42px;
+      background: rgba(18, 12, 8, 0.95);
+      border: 2px solid #17110d;
+      overflow: hidden;
+    }
+
+    .window::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      background: radial-gradient(circle at center, rgba(255, 198, 116, 0.65), rgba(255, 198, 116, 0.12) 70%, transparent 100%);
+      animation: lightPulse 6s ease-in-out infinite;
+    }
+
+    .window.left {
+      left: 52px;
+    }
+
+    .window.right {
+      right: 52px;
+    }
+
+    .door {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform-origin: left center;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 75px;
+      background: linear-gradient(180deg, #241913, #17100d);
+      border: 2px solid #100b09;
+      animation: doorCreak 12s ease-in-out infinite;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.45);
+    }
+
+    .door::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      background:
+        radial-gradient(circle at 65% 45%, rgba(255, 186, 92, 0.55), rgba(255, 186, 92, 0.0) 80%);
+      opacity: 0.8;
+    }
+
+    .porch-light-wire {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 2px;
+      height: 35px;
+      background: rgba(25, 19, 16, 0.9);
+      transform: translateX(-50%);
+      z-index: 6;
+    }
+
+    .porch-light {
+      position: absolute;
+      top: 23px;
+      left: 50%;
+      transform-origin: top center;
+      width: 18px;
+      height: 34px;
+      margin-left: -9px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #43372b, #221b16);
+      border: 1px solid #18110d;
+      animation: swingLamp 5.5s ease-in-out infinite;
+      z-index: 7;
+      box-shadow: 0 0 20px rgba(255, 190, 100, 0.1);
+    }
+
+    .porch-light::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 12px;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 200, 110, 0.95);
+      box-shadow:
+        0 0 14px rgba(255, 200, 110, 0.75),
+        0 0 30px rgba(255, 200, 110, 0.30);
+      animation: flickerLamp 4.8s ease-in-out infinite;
+    }
+
+    .porch-glow {
+      position: absolute;
+      top: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 130px;
+      background: radial-gradient(ellipse at center, rgba(255, 193, 110, 0.12), rgba(255, 193, 110, 0.00) 72%);
+      animation: glowPulse 5.5s ease-in-out infinite;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      from { transform: translateX(-20px); opacity: 0.65; }
+      to   { transform: translateX(20px); opacity: 0.9; }
+    }
+
+    @keyframes swingLamp {
+      0%, 100% { transform: translateX(-50%) rotate(-5deg); }
+      50%      { transform: translateX(-50%) rotate(5deg); }
+    }
+
+    @keyframes flickerLamp {
+      0%, 100% { opacity: 0.92; }
+      18% { opacity: 0.78; }
+      20% { opacity: 1; }
+      24% { opacity: 0.7; }
+      26% { opacity: 0.96; }
+      58% { opacity: 0.82; }
+      61% { opacity: 1; }
+      79% { opacity: 0.74; }
+      82% { opacity: 0.95; }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.75; }
+      50%      { opacity: 1; }
+    }
+
+    @keyframes lightPulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+
+    @keyframes doorCreak {
+      0%, 70%, 100% { transform: translateX(-50%) rotateY(0deg); }
+      76%           { transform: translateX(-50%) rotateY(-22deg); }
+      82%           { transform: translateX(-50%) rotateY(-10deg); }
+      88%           { transform: translateX(-50%) rotateY(-18deg); }
+      93%           { transform: translateX(-50%) rotateY(0deg); }
+    }
+
+    /* =========================
+       CREEPY MODE
+    ========================= */
+    body.creepy {
+      color: #ece5db;
+      background:
+        linear-gradient(rgba(5,5,5,0.78), rgba(5,5,5,0.95)),
+        radial-gradient(circle at 50% 0%, #2f241d, #120f0d 44%, #050505 82%);
     }
 
     body.creepy nav {
-      background: rgba(12, 10, 8, 0.92);
-
-      border-bottom: 1px solid #413428;
-
-      backdrop-filter: blur(10px);
+      background: rgba(11, 10, 9, 0.88);
+      border-bottom: 1px solid #3e3229;
+      backdrop-filter: blur(8px);
     }
 
     body.creepy nav a {
-      color: #d8ccbf;
+      color: #d8cbbe;
     }
 
     body.creepy nav a:hover {
-      background: #372b22;
-      color: white;
+      background: #342920;
+      color: #fffaf3;
+    }
+
+    body.creepy .hero-overlay {
+      background: rgba(11, 9, 8, 0.40);
+      border: 1px solid rgba(103, 82, 63, 0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    body.creepy .hero-overlay h1 {
+      color: #f0e7da;
+      text-shadow: 0 5px 14px rgba(0,0,0,0.75);
+    }
+
+    body.creepy .hero-overlay p {
+      color: #cabfb1;
     }
 
     body.creepy section h2 {
-      color: #dfd1c2;
-
-      border-bottom: 1px solid #4b3d32;
+      color: #e1d4c5;
+      border-bottom: 1px solid #483b31;
       padding-bottom: 12px;
     }
 
     body.creepy .project-card {
-      background:
-        linear-gradient(
-          145deg,
-          rgba(36, 29, 24, 0.96),
-          rgba(17, 15, 13, 0.98)
-        );
-
-      border: 1px solid #4a3a2d;
-
+      background: linear-gradient(145deg, rgba(35, 28, 23, 0.96), rgba(16, 14, 13, 0.98));
+      border: 1px solid #4b3a2e;
       box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.4),
-        inset 0 0 25px rgba(87, 57, 34, 0.08);
+        0 14px 35px rgba(0,0,0,0.36),
+        inset 0 0 22px rgba(92, 60, 35, 0.06);
     }
 
     body.creepy .project-card:hover {
       box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.55),
-        0 0 18px rgba(120, 81, 48, 0.12);
+        0 18px 42px rgba(0,0,0,0.5),
+        0 0 16px rgba(112, 78, 47, 0.12);
     }
 
     body.creepy .project-card h3 {
-      color: #eadccc;
+      color: #ebdece;
     }
 
     body.creepy .project-card p {
-      color: #beb2a6;
+      color: #bfb2a5;
     }
 
     body.creepy .status {
-      background: #33271f;
-      color: #c9b7a5;
-
-      border: 1px solid #5b4635;
+      background: #32261e;
+      color: #cfbfad;
+      border: 1px solid #5d4736;
     }
 
     body.creepy footer {
-      color: #897d72;
-      border-top: 1px solid #352b24;
+      color: #8b7e73;
+      border-top: 1px solid #352b25;
     }
 
     body.creepy #theme-switcher {
       background: #211914;
-      color: #e8ded4;
-
-      border: 1px solid #594536;
-    }
-
-    /* Subtle ambient glow/flicker */
-    body.creepy .house-light {
-      position: fixed;
-
-      top: 0;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      width: 500px;
-      height: 260px;
-
-      pointer-events: none;
-
-      background:
-        radial-gradient(
-          ellipse at center,
-          rgba(255, 190, 105, 0.055),
-          transparent 70%
-        );
-
-      animation: lightPulse 8s infinite ease-in-out;
-    }
-
-    @keyframes lightPulse {
-      0%, 100% {
-        opacity: 0.55;
-      }
-
-      45% {
-        opacity: 0.8;
-      }
-
-      47% {
-        opacity: 0.5;
-      }
-
-      49% {
-        opacity: 0.75;
-      }
-
-      80% {
-        opacity: 0.65;
-      }
+      color: #e8ddd1;
+      border: 1px solid #5a4636;
     }
 
     /* =========================
-       SYMPTOM CALENDAR MODE
-    ========================== */
-
+       SYMPTOM MODE
+    ========================= */
     body.symptom {
-      background: #f5f8fa;
-      color: #24323b;
-    }
-
-    body.symptom header {
-      background:
-        linear-gradient(
-          135deg,
-          #edf6f7,
-          #f9fbfc
-        );
-
-      border-bottom: 1px solid #d7e2e5;
-    }
-
-    body.symptom header h1 {
-      color: #24464c;
-      text-shadow: none;
-    }
-
-    body.symptom header p {
-      color: #53676c;
+      background: #e9eff1;
+      color: #263239;
     }
 
     body.symptom nav {
-      background: rgba(255, 255, 255, 0.95);
-
-      border-bottom: 1px solid #d9e4e6;
-
+      background: rgba(235, 242, 244, 0.94);
+      border-bottom: 1px solid #cfdadd;
       backdrop-filter: blur(8px);
     }
 
     body.symptom nav a {
-      color: #34585d;
+      color: #39545b;
     }
 
     body.symptom nav a:hover {
-      background: #e5f0f2;
+      background: #dbe6e8;
+    }
+
+    body.symptom .hero {
+      min-height: 430px;
+    }
+
+    body.symptom .scene {
+      background:
+        linear-gradient(180deg, #dfe7ea, #e9eff1 60%, #e5ecee);
+    }
+
+    body.symptom .moon,
+    body.symptom .mist,
+    body.symptom .tree-line-back,
+    body.symptom .tree-line-front,
+    body.symptom .cabin,
+    body.symptom .porch-glow,
+    body.symptom .porch-light,
+    body.symptom .porch-light-wire {
+      display: none;
+    }
+
+    body.symptom .hero-overlay {
+      background: rgba(240, 245, 246, 0.78);
+      border: 1px solid rgba(188, 202, 206, 0.9);
+      box-shadow: 0 10px 30px rgba(40, 60, 70, 0.08);
+    }
+
+    body.symptom .hero-overlay h1 {
+      color: #2b4950;
+      text-shadow: none;
+    }
+
+    body.symptom .hero-overlay p {
+      color: #5a6d72;
     }
 
     body.symptom section h2 {
-      color: #2a5056;
-
-      border-bottom: 1px solid #d8e3e5;
+      color: #30535a;
+      border-bottom: 1px solid #cfdcdf;
       padding-bottom: 12px;
     }
 
     body.symptom .project-card {
-      background: white;
-
-      border: 1px solid #dce6e8;
-
-      box-shadow:
-        0 8px 30px rgba(30, 50, 60, 0.06);
+      background: #f5f9fa;
+      border: 1px solid #d6e1e4;
+      box-shadow: 0 8px 28px rgba(39, 56, 62, 0.06);
     }
 
     body.symptom .project-card:hover {
-      box-shadow:
-        0 12px 34px rgba(30, 50, 60, 0.1);
+      box-shadow: 0 12px 32px rgba(39, 56, 62, 0.09);
     }
 
     body.symptom .project-card h3 {
-      color: #264b50;
+      color: #2b4c52;
     }
 
     body.symptom .project-card p {
-      color: #586b70;
+      color: #5d6e73;
     }
 
     body.symptom .status {
-      background: #e9f3f4;
-      color: #456b70;
-
-      border: 1px solid #d0e2e4;
+      background: #e3edef;
+      color: #486970;
+      border: 1px solid #c9dadf;
     }
 
     body.symptom footer {
-      background: #eef4f5;
-
-      color: #67787c;
-
-      border-top: 1px solid #d9e3e5;
+      background: #e2eaec;
+      color: #68797e;
+      border-top: 1px solid #cfdadd;
     }
 
     body.symptom #theme-switcher {
-      background: white;
-      color: #355c61;
-
-      border: 1px solid #cddcde;
-
-      box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    body.symptom .house-light {
-      display: none;
+      background: #f8fbfb;
+      color: #375860;
+      border: 1px solid #c7d8dc;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
     }
 
     /* =========================
        RESPONSIVE
-    ========================== */
-
-    @media (max-width: 650px) {
+    ========================= */
+    @media (max-width: 700px) {
       .entry-options {
         grid-template-columns: 1fr;
       }
@@ -577,293 +686,176 @@
         padding: 30px 22px;
       }
 
-      header {
-        padding-top: 60px;
+      .hero {
+        min-height: 480px;
+      }
+
+      .cabin {
+        transform: translateX(-50%) scale(0.9);
       }
     }
   </style>
 </head>
-
 <body>
 
   <div id="entry-screen">
     <div class="entry-box">
-
       <h1>Creaking Door Software</h1>
-
-      <p>
-        Welcome. Before you enter, tell us what brought you here.
-      </p>
+      <p>Welcome. Before you enter, tell us what brought you here.</p>
 
       <div class="entry-options">
-
-        <button
-          class="entry-button"
-          onclick="chooseMode('symptom')"
-        >
+        <button class="entry-button" onclick="chooseMode('symptom')">
           <strong>I'm here for Symptom Calendar</strong>
-
-          <span>
-            Open the calm, accessible app experience.
-          </span>
+          <span>Open the calmer, cleaner app-focused experience.</span>
         </button>
 
-        <button
-          class="entry-button"
-          onclick="chooseMode('creepy')"
-        >
+        <button class="entry-button" onclick="chooseMode('creepy')">
           <strong>Enter Creaking Door Software</strong>
-
-          <span>
-            Games, experiments, and things lurking in development.
-          </span>
+          <span>Games, experiments, and things waiting in the dark.</span>
         </button>
-
       </div>
-
     </div>
   </div>
 
-
   <div id="site-content">
-
-    <div class="house-light"></div>
-
     <header>
+      <div class="hero">
+        <div class="scene">
+          <div class="moon"></div>
+          <div class="mist"></div>
+          <div class="tree-line-back"></div>
 
-      <h1 id="site-title">
-        Creaking Door Software
-      </h1>
+          <div class="cabin">
+            <div class="cabin-roof"></div>
+            <div class="cabin-body">
+              <div class="window left"></div>
+              <div class="window right"></div>
+              <div class="door"></div>
+              <div class="porch-light-wire"></div>
+              <div class="porch-light"></div>
+              <div class="porch-glow"></div>
+            </div>
+          </div>
 
-      <p id="site-tagline">
-        Independent games, apps, and strange little experiments.
-      </p>
+          <div class="tree-line-front"></div>
+        </div>
 
+        <div class="hero-overlay">
+          <h1 id="site-title">Creaking Door Software</h1>
+          <p id="site-tagline">
+            Independent games, apps, and strange little experiments.
+          </p>
+        </div>
+      </div>
     </header>
 
-
     <nav>
-
       <a href="#projects">Projects</a>
-
       <a href="#about">About</a>
-
       <a href="#contact">Contact</a>
-
     </nav>
 
-
     <main>
-
       <section id="projects">
-
         <h2>Projects</h2>
 
-
         <div class="project-grid">
-
-
-          <article
-            class="project-card"
-            data-project="symptom"
-          >
-
+          <article class="project-card">
             <h3>Symptom Calendar</h3>
-
             <p>
               A simple symptom-tracking app built around fast logging,
               clear history, and convenient sharing of symptom records.
             </p>
-
-            <span class="status">
-              Preparing for beta release
-            </span>
-
+            <span class="status">Preparing for beta release</span>
           </article>
 
-
-          <article
-            class="project-card"
-            data-project="horror"
-          >
-
+          <article class="project-card">
             <h3>Upcoming Horror Game</h3>
-
             <p>
               A compact indie horror project currently in development,
               focused on atmosphere, tension, and a deliberately unsettling experience.
             </p>
-
-            <span class="status">
-              In development
-            </span>
-
+            <span class="status">In development</span>
           </article>
 
-
-          <article
-            class="project-card"
-            data-project="forge"
-          >
-
+          <article class="project-card">
             <h3>Encounter Forge</h3>
-
             <p>
               A tabletop encounter-design and combat-calibration tool
               intended to make encounter creation and balancing easier.
             </p>
-
-            <span class="status">
-              In development
-            </span>
-
+            <span class="status">In development</span>
           </article>
-
-
         </div>
-
       </section>
 
-
       <section id="about">
-
         <h2>About Creaking Door Software</h2>
-
         <p>
           Creaking Door Software is an independent software studio
           developing useful applications, games, and experimental projects.
         </p>
-
         <p>
           Our projects range from practical tools to strange,
           atmospheric interactive experiences.
         </p>
-
       </section>
 
-
       <section id="contact">
-
         <h2>Contact</h2>
-
         <p>
           Business contact information will be available here soon.
         </p>
-
       </section>
-
     </main>
 
-
     <footer>
-
       © 2026 Creaking Door Software
-
     </footer>
 
-
-    <button
-      id="theme-switcher"
-      onclick="resetMode()"
-    >
+    <button id="theme-switcher" onclick="resetMode()">
       Switch Site Experience
     </button>
-
   </div>
 
-
   <script>
-
     function chooseMode(mode) {
-
       localStorage.setItem("creakingDoorMode", mode);
-
       applyMode(mode);
-
     }
-
 
     function applyMode(mode) {
-
-      document.body.classList.remove(
-        "creepy",
-        "symptom"
-      );
-
+      document.body.classList.remove("creepy", "symptom");
       document.body.classList.add(mode);
 
+      document.getElementById("entry-screen").style.display = "none";
+      document.getElementById("site-content").style.display = "block";
 
-      document
-        .getElementById("entry-screen")
-        .style.display = "none";
-
-
-      document
-        .getElementById("site-content")
-        .style.display = "block";
-
-
-      const title =
-        document.getElementById("site-title");
-
-      const tagline =
-        document.getElementById("site-tagline");
-
+      const title = document.getElementById("site-title");
+      const tagline = document.getElementById("site-tagline");
 
       if (mode === "symptom") {
-
-        title.textContent =
-          "Symptom Calendar";
-
+        title.textContent = "Symptom Calendar";
         tagline.textContent =
           "Simple symptom tracking designed for clarity, speed, and useful records.";
-
-      }
-
-      else {
-
-        title.textContent =
-          "Creaking Door Software";
-
+      } else {
+        title.textContent = "Creaking Door Software";
         tagline.textContent =
           "Independent games, apps, and strange little experiments.";
-
       }
-
     }
-
 
     function resetMode() {
-
-      localStorage.removeItem(
-        "creakingDoorMode"
-      );
-
+      localStorage.removeItem("creakingDoorMode");
       location.reload();
-
     }
 
-
-    window.addEventListener(
-      "DOMContentLoaded",
-      () => {
-
-        const savedMode =
-          localStorage.getItem(
-            "creakingDoorMode"
-          );
-
-
-        if (savedMode) {
-
-          applyMode(savedMode);
-
-        }
-
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedMode = localStorage.getItem("creakingDoorMode");
+      if (savedMode) {
+        applyMode(savedMode);
       }
-    );
-
+    });
   </script>
-
 </body>
 </html>
