@@ -1,41 +1,869 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Creaking Door Software</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      transition:
+        background 0.5s ease,
+        color 0.5s ease;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* =========================
+       ENTRY SCREEN
+    ========================== */
+
+    #entry-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(50, 40, 32, 0.85),
+          rgba(5, 5, 5, 0.98)
+        );
+    }
+
+    .entry-box {
+      width: min(650px, 100%);
+      padding: 42px;
+
+      background: rgba(14, 14, 14, 0.96);
+
+      border: 1px solid #6e5945;
+      border-radius: 10px;
+
+      box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.9),
+        inset 0 0 30px rgba(85, 56, 35, 0.18);
+
+      text-align: center;
+
+      color: #eee8dd;
+    }
+
+    .entry-box h1 {
+      margin-top: 0;
+      margin-bottom: 16px;
+
+      font-family: Georgia, serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+
+      letter-spacing: 1px;
+    }
+
+    .entry-box p {
+      line-height: 1.7;
+      color: #cfc4b5;
+    }
+
+    .entry-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+
+      margin-top: 30px;
+    }
+
+    .entry-button {
+      padding: 20px;
+
+      border-radius: 8px;
+      border: 1px solid #8b6a4d;
+
+      cursor: pointer;
+
+      background: #211c18;
+      color: #f2ece4;
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .entry-button:hover {
+      transform: translateY(-3px);
+
+      background: #332920;
+
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .entry-button strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .entry-button span {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* =========================
+       GENERAL PAGE LAYOUT
+    ========================== */
+
+    #site-content {
+      display: none;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1;
+
+      font-family: Georgia, "Times New Roman", serif;
+
+      letter-spacing: 2px;
+    }
+
+    header p {
+      max-width: 750px;
+      margin: 22px auto 0;
+
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      gap: 16px;
+
+      padding: 14px 24px;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      padding: 9px 15px;
+
+      border-radius: 6px;
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    main {
+      width: min(1100px, calc(100% - 40px));
+      margin: 0 auto;
+
+      padding-bottom: 80px;
+    }
+
+    section {
+      padding: 55px 0;
+    }
+
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 28px;
+
+      font-size: 2rem;
+
+      font-family: Georgia, serif;
+    }
+
+    .project-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+      gap: 24px;
+    }
+
+    .project-card {
+      padding: 26px;
+
+      border-radius: 10px;
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+      font-size: 1.35rem;
+    }
+
+    .project-card p {
+      line-height: 1.7;
+    }
+
+    .status {
+      display: inline-block;
+
+      margin-top: 14px;
+      padding: 5px 10px;
+
+      border-radius: 20px;
+
+      font-size: 0.8rem;
+    }
+
+    footer {
+      padding: 40px 24px;
+      text-align: center;
+
+      font-size: 0.9rem;
+    }
+
+    #theme-switcher {
+      position: fixed;
+
+      right: 18px;
+      bottom: 18px;
+
+      z-index: 500;
+
+      padding: 10px 14px;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+      font-size: 0.85rem;
+    }
+
+    /* =========================
+       CREEPING DOOR MODE
+    ========================== */
+
+    body.creepy {
+      color: #ebe5dc;
+
+      background:
+        linear-gradient(
+          rgba(5, 5, 5, 0.78),
+          rgba(5, 5, 5, 0.94)
+        ),
+        radial-gradient(
+          circle at 50% 0%,
+          #433224,
+          #16120f 45%,
+          #060606 80%
+        );
+    }
+
+    body.creepy::before {
+      content: "";
+
+      pointer-events: none;
+
+      position: fixed;
+      inset: 0;
+
+      z-index: -1;
+
+      opacity: 0.14;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 45px,
+          rgba(255,255,255,0.03) 46px,
+          transparent 47px
+        );
+    }
+
+    body.creepy header {
+      position: relative;
+
+      background:
+        linear-gradient(
+          rgba(0, 0, 0, 0.25),
+          rgba(0, 0, 0, 0.6)
+        );
+
+      border-bottom: 1px solid #47392e;
+    }
+
+    body.creepy header h1 {
+      color: #f1e7d9;
+
+      text-shadow:
+        0 0 10px rgba(210, 170, 115, 0.15),
+        0 5px 15px rgba(0,0,0,0.8);
+    }
+
+    body.creepy header p {
+      color: #bfb3a6;
+    }
+
+    body.creepy nav {
+      background: rgba(12, 10, 8, 0.92);
+
+      border-bottom: 1px solid #413428;
+
+      backdrop-filter: blur(10px);
+    }
+
+    body.creepy nav a {
+      color: #d8ccbf;
+    }
+
+    body.creepy nav a:hover {
+      background: #372b22;
+      color: white;
+    }
+
+    body.creepy section h2 {
+      color: #dfd1c2;
+
+      border-bottom: 1px solid #4b3d32;
+      padding-bottom: 12px;
+    }
+
+    body.creepy .project-card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(36, 29, 24, 0.96),
+          rgba(17, 15, 13, 0.98)
+        );
+
+      border: 1px solid #4a3a2d;
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.4),
+        inset 0 0 25px rgba(87, 57, 34, 0.08);
+    }
+
+    body.creepy .project-card:hover {
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(120, 81, 48, 0.12);
+    }
+
+    body.creepy .project-card h3 {
+      color: #eadccc;
+    }
+
+    body.creepy .project-card p {
+      color: #beb2a6;
+    }
+
+    body.creepy .status {
+      background: #33271f;
+      color: #c9b7a5;
+
+      border: 1px solid #5b4635;
+    }
+
+    body.creepy footer {
+      color: #897d72;
+      border-top: 1px solid #352b24;
+    }
+
+    body.creepy #theme-switcher {
+      background: #211914;
+      color: #e8ded4;
+
+      border: 1px solid #594536;
+    }
+
+    /* Subtle ambient glow/flicker */
+    body.creepy .house-light {
+      position: fixed;
+
+      top: 0;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 500px;
+      height: 260px;
+
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(255, 190, 105, 0.055),
+          transparent 70%
+        );
+
+      animation: lightPulse 8s infinite ease-in-out;
+    }
+
+    @keyframes lightPulse {
+      0%, 100% {
+        opacity: 0.55;
+      }
+
+      45% {
+        opacity: 0.8;
+      }
+
+      47% {
+        opacity: 0.5;
+      }
+
+      49% {
+        opacity: 0.75;
+      }
+
+      80% {
+        opacity: 0.65;
+      }
+    }
+
+    /* =========================
+       SYMPTOM CALENDAR MODE
+    ========================== */
+
+    body.symptom {
+      background: #f5f8fa;
+      color: #24323b;
+    }
+
+    body.symptom header {
+      background:
+        linear-gradient(
+          135deg,
+          #edf6f7,
+          #f9fbfc
+        );
+
+      border-bottom: 1px solid #d7e2e5;
+    }
+
+    body.symptom header h1 {
+      color: #24464c;
+      text-shadow: none;
+    }
+
+    body.symptom header p {
+      color: #53676c;
+    }
+
+    body.symptom nav {
+      background: rgba(255, 255, 255, 0.95);
+
+      border-bottom: 1px solid #d9e4e6;
+
+      backdrop-filter: blur(8px);
+    }
+
+    body.symptom nav a {
+      color: #34585d;
+    }
+
+    body.symptom nav a:hover {
+      background: #e5f0f2;
+    }
+
+    body.symptom section h2 {
+      color: #2a5056;
+
+      border-bottom: 1px solid #d8e3e5;
+      padding-bottom: 12px;
+    }
+
+    body.symptom .project-card {
+      background: white;
+
+      border: 1px solid #dce6e8;
+
+      box-shadow:
+        0 8px 30px rgba(30, 50, 60, 0.06);
+    }
+
+    body.symptom .project-card:hover {
+      box-shadow:
+        0 12px 34px rgba(30, 50, 60, 0.1);
+    }
+
+    body.symptom .project-card h3 {
+      color: #264b50;
+    }
+
+    body.symptom .project-card p {
+      color: #586b70;
+    }
+
+    body.symptom .status {
+      background: #e9f3f4;
+      color: #456b70;
+
+      border: 1px solid #d0e2e4;
+    }
+
+    body.symptom footer {
+      background: #eef4f5;
+
+      color: #67787c;
+
+      border-top: 1px solid #d9e3e5;
+    }
+
+    body.symptom #theme-switcher {
+      background: white;
+      color: #355c61;
+
+      border: 1px solid #cddcde;
+
+      box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    body.symptom .house-light {
+      display: none;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 650px) {
+      .entry-options {
+        grid-template-columns: 1fr;
+      }
+
+      .entry-box {
+        padding: 30px 22px;
+      }
+
+      header {
+        padding-top: 60px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Creaking Door Software</h1>
 
-  <p>Independent games, apps, and strange little experiments.</p>
+  <div id="entry-screen">
+    <div class="entry-box">
 
-  <h2>Projects</h2>
+      <h1>Creaking Door Software</h1>
 
-  <h3>Symptom Calendar</h3>
-  <p>
-    A simple symptom-tracking app designed for fast logging,
-    easy record keeping, and convenient sharing of symptom history.
-  </p>
+      <p>
+        Welcome. Before you enter, tell us what brought you here.
+      </p>
 
-  <h3>Upcoming Horror Game</h3>
-  <p>
-    A small indie horror project currently in development.
-  </p>
+      <div class="entry-options">
 
-  <h3>Encounter Forge</h3>
-  <p>
-    A tabletop encounter-design and combat-calibration tool currently in development.
-  </p>
+        <button
+          class="entry-button"
+          onclick="chooseMode('symptom')"
+        >
+          <strong>I'm here for Symptom Calendar</strong>
 
-  <h2>About</h2>
-  <p>
-    Creaking Door Software is an independent software studio focused on
-    useful applications, games, and experimental projects.
-  </p>
+          <span>
+            Open the calm, accessible app experience.
+          </span>
+        </button>
 
-  <h2>Contact</h2>
-  <p>Business contact information coming soon.</p>
+        <button
+          class="entry-button"
+          onclick="chooseMode('creepy')"
+        >
+          <strong>Enter Creaking Door Software</strong>
+
+          <span>
+            Games, experiments, and things lurking in development.
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="site-content">
+
+    <div class="house-light"></div>
+
+    <header>
+
+      <h1 id="site-title">
+        Creaking Door Software
+      </h1>
+
+      <p id="site-tagline">
+        Independent games, apps, and strange little experiments.
+      </p>
+
+    </header>
+
+
+    <nav>
+
+      <a href="#projects">Projects</a>
+
+      <a href="#about">About</a>
+
+      <a href="#contact">Contact</a>
+
+    </nav>
+
+
+    <main>
+
+      <section id="projects">
+
+        <h2>Projects</h2>
+
+
+        <div class="project-grid">
+
+
+          <article
+            class="project-card"
+            data-project="symptom"
+          >
+
+            <h3>Symptom Calendar</h3>
+
+            <p>
+              A simple symptom-tracking app built around fast logging,
+              clear history, and convenient sharing of symptom records.
+            </p>
+
+            <span class="status">
+              Preparing for beta release
+            </span>
+
+          </article>
+
+
+          <article
+            class="project-card"
+            data-project="horror"
+          >
+
+            <h3>Upcoming Horror Game</h3>
+
+            <p>
+              A compact indie horror project currently in development,
+              focused on atmosphere, tension, and a deliberately unsettling experience.
+            </p>
+
+            <span class="status">
+              In development
+            </span>
+
+          </article>
+
+
+          <article
+            class="project-card"
+            data-project="forge"
+          >
+
+            <h3>Encounter Forge</h3>
+
+            <p>
+              A tabletop encounter-design and combat-calibration tool
+              intended to make encounter creation and balancing easier.
+            </p>
+
+            <span class="status">
+              In development
+            </span>
+
+          </article>
+
+
+        </div>
+
+      </section>
+
+
+      <section id="about">
+
+        <h2>About Creaking Door Software</h2>
+
+        <p>
+          Creaking Door Software is an independent software studio
+          developing useful applications, games, and experimental projects.
+        </p>
+
+        <p>
+          Our projects range from practical tools to strange,
+          atmospheric interactive experiences.
+        </p>
+
+      </section>
+
+
+      <section id="contact">
+
+        <h2>Contact</h2>
+
+        <p>
+          Business contact information will be available here soon.
+        </p>
+
+      </section>
+
+    </main>
+
+
+    <footer>
+
+      © 2026 Creaking Door Software
+
+    </footer>
+
+
+    <button
+      id="theme-switcher"
+      onclick="resetMode()"
+    >
+      Switch Site Experience
+    </button>
+
+  </div>
+
+
+  <script>
+
+    function chooseMode(mode) {
+
+      localStorage.setItem("creakingDoorMode", mode);
+
+      applyMode(mode);
+
+    }
+
+
+    function applyMode(mode) {
+
+      document.body.classList.remove(
+        "creepy",
+        "symptom"
+      );
+
+      document.body.classList.add(mode);
+
+
+      document
+        .getElementById("entry-screen")
+        .style.display = "none";
+
+
+      document
+        .getElementById("site-content")
+        .style.display = "block";
+
+
+      const title =
+        document.getElementById("site-title");
+
+      const tagline =
+        document.getElementById("site-tagline");
+
+
+      if (mode === "symptom") {
+
+        title.textContent =
+          "Symptom Calendar";
+
+        tagline.textContent =
+          "Simple symptom tracking designed for clarity, speed, and useful records.";
+
+      }
+
+      else {
+
+        title.textContent =
+          "Creaking Door Software";
+
+        tagline.textContent =
+          "Independent games, apps, and strange little experiments.";
+
+      }
+
+    }
+
+
+    function resetMode() {
+
+      localStorage.removeItem(
+        "creakingDoorMode"
+      );
+
+      location.reload();
+
+    }
+
+
+    window.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        const savedMode =
+          localStorage.getItem(
+            "creakingDoorMode"
+          );
+
+
+        if (savedMode) {
+
+          applyMode(savedMode);
+
+        }
+
+      }
+    );
+
+  </script>
+
 </body>
 </html>
